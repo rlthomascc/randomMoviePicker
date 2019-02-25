@@ -24,6 +24,10 @@
     "request": "^2.81.0"
   },
   "dependencies": {
+    "eslint": "^5.14.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "i": "^0.3.6",
+    "npm": "^6.8.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-router": "^4.3.1",
