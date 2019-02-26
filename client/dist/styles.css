@@ -12,3 +12,8 @@ body {
     position:absolute;
     top:25%;
 }
+
+#refresh {
+    text-align: center;
+    margin-right: auto;
+}
