@@ -8,6 +8,7 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import util from '../../../sensitive';
+import getAllPageData from '../../../helpers/util';
 
 class Form extends Component {
   constructor(props) {
@@ -36,6 +37,8 @@ class Form extends Component {
       },
       years: [],
       movies: [],
+      total_pages: 0,
+      isLoading: '',
     };
   }
 
@@ -52,46 +55,126 @@ class Form extends Component {
     });
   }
 
+  getRandomInt(num) {
+    return Math.floor(Math.random() * Math.floor(num));
+  }
+
+  getRandomFilm() {
+    const { movies } = this.state;
+    return movies[this.getRandomInt(movies.length)];
+  }
+
+  // getAllPageData(genre, year, rate, pageCount) {
+  //   const allData = [];
+  //   for (let page = 1; page <= pageCount; page++) {
+  //     let path = '';
+  //     if (genre !== undefined && year !== 'Choose Year...' && rate !== 'Choose Rating...') {
+  //       console.log('genre year and rating');
+  //       path = `https://api.themoviedb.org/3/discover/movie?api_key=${util.API_KEY}&primary_release_year=${year}&vote_average.gte=${rate}&with_genres=${genre}&page=${page}`;
+  //     }
+  //     if (genre !== undefined && rate !== 'Choose Rating...' && year === 'Choose Year...') {
+  //       console.log('genre and rating');
+  //       path = `https://api.themoviedb.org/3/discover/movie?api_key=${util.API_KEY}&vote_average.gte=${rate}&with_genres=${genre}&page=${page}`;
+  //     }
+  //     if (genre !== undefined && year !== 'Choose Year...' && rate === 'Choose Rating...') {
+  //       console.log('genre and year');
+  //       path = `https://api.themoviedb.org/3/discover/movie?api_key=${util.API_KEY}&primary_release_year=${year}&with_genres=${genre}&page=${page}`;
+  //     }
+  //     if (year !== 'Choose Year...' && rate !== 'Choose Rating...' && genre === undefined) {
+  //       console.log('year and rating');
+  //       path = `https://api.themoviedb.org/3/discover/movie?api_key=${util.API_KEY}&primary_release_year=${year}&vote_average.gte=${rate}&page=${page}`;
+  //     }
+  //     if (genre !== undefined && year === 'Choose Year...' && rate === 'Choose Rating...') {
+  //       console.log('genre only');
+  //       path = `https://api.themoviedb.org/3/discover/movie?api_key=${util.API_KEY}&with_genres=${genre}&page=${page}`;
+  //     }
+  //     if (year !== 'Choose Year...' && rate === 'Choose Rating...' && genre === undefined) {
+  //       console.log('year only');
+  //       path = `https://api.themoviedb.org/3/discover/movie?api_key=${util.API_KEY}&primary_release_year=${year}&page=${page}`;
+  //     }
+  //     if (rate !== 'Choose Rating...' && year === 'Choose Year...' && genre === undefined) {
+  //       console.log('rating only');
+  //       path = `https://api.themoviedb.org/3/discover/movie?api_key=${util.API_KEY}&vote_average.gte=${rate}&page=${page}`;
+  //     }
+  //     $.ajax({
+  //       method: 'GET',
+  //       url: path,
+  //       success: (data) => {
+  //         const newData = data.results.toString().replace(/[\[\]']+/g, '');
+  //         console.log(allData.push(newData));
+  //       },
+  //       error: (err) => {
+  //         console.log(err, 'Error');
+  //       },
+  //     });
+  //     path = '';
+  //     console.log(allData, 'All Data');
+  //   }
+  // }
+
+
+  setLoading(e) {
+    e.preventDefault();
+    this.setState({
+      isLoading: true,
+    });
+    this.handleSubmit(e);
+  }
+
 
   handleSubmit(e) {
-    e.preventDefault();
+    // e.preventDefault();
+    // this.setState({
+    //   isLoading: true,
+    // });
     const { genres } = this.state;
     const genreId = genres[e.target.genre.value];
+    console.log(genreId, 'genreId');
     const year = e.target.year.value;
+    console.log(year, 'year');
     const rate = e.target.rate.value;
+    console.log(rate, 'rate');
     let path = '';
-    if (e.target.genre.value !== 'Choose Genre...' && year !== 'Choose Year...' && rate !== 'Choose Rating...') {
-      path = `https://api.themoviedb.org/3/discover/movie?api_key=${util.API_KEY}&primary_release_year=${year}&vote_average.gte=${rate}&with_genres=${genreId}`;
+    if (genreId !== undefined && year !== 'Choose Year...' && rate !== 'Choose Rating...') {
+      console.log('genre year and rating');
+      path = `https://api.themoviedb.org/3/discover/movie?api_key=${util.API_KEY}&primary_release_year=${year}&vote_average.gte=${rate}&with_genres=${genreId}&page=3`;
     }
-    if (e.target.genre.value !== 'Choose Genre...' && rate !== 'Choose Rating...') {
+    if (genreId !== undefined && rate !== 'Choose Rating...' && year === 'Choose Year...') {
+      console.log('genre and rating');
       path = `https://api.themoviedb.org/3/discover/movie?api_key=${util.API_KEY}&vote_average.gte=${rate}&with_genres=${genreId}`;
     }
-    if (e.target.genre.value !== 'Choose Genre...' && year !== 'Choose Year...') {
+    if (genreId !== undefined && year !== 'Choose Year...' && rate === 'Choose Rating...') {
+      console.log('genre and year');
       path = `https://api.themoviedb.org/3/discover/movie?api_key=${util.API_KEY}&primary_release_year=${year}&with_genres=${genreId}`;
     }
-    if (year !== 'Choose Year...' && rate !== 'Choose Rating...') {
+    if (year !== 'Choose Year...' && rate !== 'Choose Rating...' && genreId === undefined) {
+      console.log('year and rating');
       path = `https://api.themoviedb.org/3/discover/movie?api_key=${util.API_KEY}&primary_release_year=${year}&vote_average.gte=${rate}`;
     }
-    if (e.target.genre.value !== 'Choose Genre...') {
+    if (e.target.genre.value !== undefined && year === 'Choose Year...' && rate === 'Choose Rating...') {
+      console.log('genre only');
       path = `https://api.themoviedb.org/3/discover/movie?api_key=${util.API_KEY}&with_genres=${genreId}`;
     }
-    if (year !== 'Choose Year...') {
+    if (year !== 'Choose Year...' && rate === 'Choose Rating...' && genreId === undefined) {
+      console.log('year only');
       path = `https://api.themoviedb.org/3/discover/movie?api_key=${util.API_KEY}&primary_release_year=${year}`;
     }
-    if (rate !== 'Choose Rating...') {
+    if (rate !== 'Choose Rating...' && year === 'Choose Year...' && genreId === undefined) {
+      console.log('rating only');
       path = `https://api.themoviedb.org/3/discover/movie?api_key=${util.API_KEY}&vote_average.gte=${rate}`;
     }
     $.ajax({
       method: 'GET',
       url: path,
-      data: {
-        movie: 'Jumanji',
-      },
       success: (data) => {
+        const end = data.total_pages;
         console.log(data, 'data');
-        this.setState({
-          movies: data.results,
-        });
+        // RECEIVE THE DATA PUT THE NEW DATA ARRAY INTO A NEW ARRAY
+        getAllPageData(genreId, year, rate, end);
+        // GRAB TOTAL PAGES ADD IT IN AN END VARIABLE
+        // GET SPECIFIED CRITERIA ITERATING THROUGH PAGES
+        // PUSH EVERY PAGE DATA INTO PREVIOUS ARRAY
+        // THEN SAVE TO STATE
       },
       error: (err) => {
         console.log(err, 'Error');
@@ -106,33 +189,56 @@ class Form extends Component {
     const rate = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     rate.sort((a, b) => b - a);
     return (
-      <form id="form" className="form bg-light border-top border-bottom rounded col-sm-3" onSubmit={this.handleSubmit.bind(this)}>
-        <div className="form-group col-sm">
-          <label className="h5">Genre</label>
-          <select id="genre" className="form-control">
-            <option>Choose Genre...</option>
-            {genre.map((elem, i) => <option key={i}>{elem}</option>)}
-          </select>
+      <form id="form" className="form bg-light border-top border-bottom rounded col-sm-6" onSubmit={this.setLoading.bind(this)}>
+        <div className="form-group">
+          <p className="h4">Random Movie Picker</p>
+          <hr />
         </div>
-        <div className="form-group col-sm">
-          <label className="h5">Year</label>
-          <select id="year" className="form-control">
-            <option>Choose Year...</option>
-            {years.map((elem, i) => <option key={i}>{elem}</option>)}
-          </select>
-        </div>
-        <div className="form-group col-sm">
-          <label className="h5">Rating</label>
-          <select id="rate" className="form-control">
-            <option>Choose Rating...</option>
-            {rate.map((elem, i) => <option key={i}>{elem}</option>)}
-          </select>
+        <div className="form-row">
+          <div className="form-group col-sm">
+            <label className="h5">Genre</label>
+            <select id="genre" className="form-control">
+              <option>Choose Genre...</option>
+              {genre.map((elem, i) => <option key={i}>{elem}</option>)}
+            </select>
+          </div>
+          <div className="form-group col-sm">
+            <label className="h5">Year</label>
+            <select id="year" className="form-control">
+              <option>Choose Year...</option>
+              {years.map((elem, i) => <option key={i}>{elem}</option>)}
+            </select>
+          </div>
+          <div className="form-group col-sm">
+            <label className="h5">Rating</label>
+            <select id="rate" className="form-control">
+              <option>Choose Rating...</option>
+              {rate.map((elem, i) => <option key={i}>{elem}</option>)}
+            </select>
+          </div>
         </div>
 
         <div className="col-sm">
-          <button className="btn btn-success btn-block">Submit</button>
+          <button className="btn btn-success btn-lg">Submit</button>
         </div>
       </form>
+    );
+  }
+
+  output() {
+    const { isLoading } = this.state;
+    if (isLoading === true) {
+      return (
+        <div className="d-flex justify-content-center">
+          <img src="https://media0.giphy.com/media/RFKILHZhSeGEo/giphy.gif?cid=3640f6095c7474d36751495363cdce49" />
+          {/* <img src="https://media0.giphy.com/media/l4FGoYymDa4GlEvjq/giphy.gif?cid=3640f6095c74754a6871477532eb6aa0" /> */}
+        </div>
+      );
+    }
+    return (
+      <div className="form-row">
+        {console.log(this.getRandomFilm(), 'FILM')}
+      </div>
     );
   }
 
@@ -141,7 +247,10 @@ class Form extends Component {
 
   render() {
     return (
-      this.form()
+      <div>
+        {this.form()}
+        {this.output()}
+      </div>
     );
   }
 }
