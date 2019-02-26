@@ -105,7 +105,6 @@ class Form extends Component {
       url: path,
       success: (data) => {
         const end = data.total_pages;
-        console.log(data, 'data');
         this.getAllPageData(genreId, end);
       },
       error: (err) => {
@@ -117,9 +116,9 @@ class Form extends Component {
   form() {
     const genre = ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'History', 'Horror', 'Music', 'Mystery', 'Romance', 'Science_Fiction', 'TV_Movie', 'Thriller', 'War', 'Western'];
     return (
-      <form id="form" className="form bg-light border-top border-bottom rounded col-sm-6" onSubmit={this.setLoading.bind(this)}>
+      <form id="form" className="form bg-light border-top border-bottom rounded col-sm-7" onSubmit={this.setLoading.bind(this)}>
         <div className="form-group">
-          <p className="h4">Random Movie Picker</p>
+          <p className="h4">Pick A Flick (LOGO GOES HERE)</p>
           <hr />
         </div>
         <div className="form-row">
@@ -133,7 +132,7 @@ class Form extends Component {
         </div>
 
         <div className="col-sm">
-          <button className="btn btn-success btn-lg">Submit</button>
+          <button className="btn btn-dark btn-lg text-white">Submit</button>
         </div>
       </form>
     );
