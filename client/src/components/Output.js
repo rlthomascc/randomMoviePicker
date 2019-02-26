@@ -1,8 +1,10 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable no-useless-constructor */
 /* eslint-disable no-var */
 import React, { Component } from 'react';
+import { release } from 'os';
 import Helpers from '../../../helpers/helpers';
 import Loading from './Loading';
 import Form from './Form';
@@ -19,11 +21,13 @@ class Output extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { data, isLoading } = this.props;
+    const { film1, film2, film3 } = this.state;
     var flatData = [];
     for (let i = 0; i < data.length; i++) {
       for (let j = 0; j < data[i].length; j++) {
+        data[i][j].release_date = data[i][j].release_date.substring(0, 4);
         flatData.push(data[i][j]);
       }
     }
@@ -36,8 +40,11 @@ class Output extends Component {
     });
   }
 
+
   setMovie() {
-    const { movies } = this.state;
+    const {
+      movies, film1, film2, film3,
+    } = this.state;
     this.setState({
       film1: Helpers.getRandomFilm(movies),
       film2: Helpers.getRandomFilm(movies),
@@ -46,22 +53,85 @@ class Output extends Component {
   }
 
   output() {
-    const { film1, film2, film3 } = this.state;
+    const {
+      film1, film2, film3,
+    } = this.state;
+    console.log(film1, 'film year');
     return (
-      <div>
-        <div>
-          <div>
-            <div>
-              <img src={`https://image.tmdb.org/t/p/w300/${film1.poster_path}`} />
-            </div>
-            <div>
-              <img src={`https://image.tmdb.org/t/p/w300/${film2.poster_path}`} />
-            </div>
-            <div>
-              <img src={`https://image.tmdb.org/t/p/w300/${film3.poster_path}`} />
+      <div className="output">
+        <div className="d-flex flex-column">
+
+
+          <div className="p2">
+            <div className="d-flex flex-row">
+              <div className="p2">
+                <img src={`https://image.tmdb.org/t/p/w300/${film1.poster_path}`} />
+              </div>
+              <div className="p2 col-sm-5">
+                <a target="_blank" href={`https://www.youtube.com/results?search_query=${film1.title}%20trailer`}>
+                  <p className="h4 text-danger"><b>{`${film1.title} (${film1.release_date})`}</b></p>
+                </a>
+                <br />
+                <p className="h6 text-warning"><b>Rating: </b></p>
+                <p className={`h6 ${film1.vote_average > 5.5 ? 'text-success' : 'text-danger'}`}><b>{film1.vote_average}</b></p>
+                <br />
+                <div className="d-flex align-content-end flex-wrap">
+                  <p className="text-light">{film1.overview}</p>
+                </div>
+                <br />
+                <br />
+                <a target="_blank" href={`https://www.imdb.com/find?ref_=nv_sr_fn&q=${film1.title}&s=all`}>
+                  <p className="text-primary">More Information</p>
+                </a>
+              </div>
             </div>
           </div>
-          <button type="button" className="btn btn-success btn-lg" onClick={this.setMovie.bind(this)}>Refresh</button>
+          <br />
+          <br />
+
+
+          <div className="p2">
+            <div className="d-flex flex-row">
+              <div className="p2">
+                <img src={`https://image.tmdb.org/t/p/w300/${film2.poster_path}`} />
+              </div>
+              <div className="p2 col-sm-5">
+                <a target="_blank" href={`https://www.youtube.com/results?search_query=${film2.title}%20trailer`}>
+                  <p className="h4 text-danger"><b>{`${film2.title} (${film2.release_date})`}</b></p>
+                </a>
+                <br />
+                <p className="h6 text-warning"><b>Rating: </b></p>
+                <p className={`h6 ${film2.vote_average > 5.5 ? 'text-success' : 'text-danger'}`}><b>{film2.vote_average}</b></p>
+                <br />
+                <p className="text-light">{film2.overview}</p>
+              </div>
+            </div>
+          </div>
+          <br /><br />
+
+
+          <div className="p2">
+            <div className="d-flex flex-row">
+              <div className="p2">
+                <img src={`https://image.tmdb.org/t/p/w300/${film3.poster_path}`} />
+              </div>
+              <div className="p2 col-sm-5">
+                <a target="_blank" href={`https://www.youtube.com/results?search_query=${film3.title}%20trailer`}>
+                  <p className="h4 text-danger"><b>{`${film3.title} (${film3.release_date})`}</b></p>
+                </a>
+                <br />
+                <p className="h6 text-warning"><b>Rating: </b></p>
+                <p className={`h6 ${film3.vote_average > 5.5 ? 'text-success' : 'text-danger'}`}><b>{film3.vote_average}</b></p>
+                <br />
+                <p className="text-light">{film3.overview}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br /><br />
+
+        <div className="d-flex justify-content-center ">
+          <button type="button" className="btn btn-warning btn-lg" onClick={this.setMovie.bind(this)}>Pick New Flicks</button>
         </div>
       </div>
     );
@@ -69,13 +139,11 @@ class Output extends Component {
 
   render() {
     const { isLoading, view } = this.state;
-    if (isLoading) {
-      return (
-        <Loading />
-      );
-    }
     return (
-      this.output()
+      <div>
+        <Form />
+        {this.output()}
+      </div>
     );
   }
 }
