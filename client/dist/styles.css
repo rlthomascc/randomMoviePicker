@@ -8,8 +8,12 @@ body {
     margin: 5% auto;
 };
 
-.loading {
+#loading {
+    position:absolute;
+    top:25%;
+}
+
+#refresh {
     text-align: center;
-    margin: auto;
-    background-color: red;
+    margin-right: auto;
 }
