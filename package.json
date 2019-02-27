@@ -1,11 +1,12 @@
 {
-  "name": "randomMoviePicker",
+  "name": "flickFinder",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "react": "webpack -d --watch",
-    "server": "nodemon server/index.js rs"
+    "server": "nodemon server/index.js rs",
+    "start": "node server/index.js"
   },
   "author": "Randy L Thomas",
   "license": "ISC",
