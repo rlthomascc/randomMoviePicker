@@ -12,6 +12,18 @@ class Loading extends Component {
         <div className="d-flex justify-content-center">
           <img src="https://media0.giphy.com/media/RFKILHZhSeGEo/giphy.gif?cid=3640f6095c7474d36751495363cdce49" />
         </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
       </div>
     );
   }

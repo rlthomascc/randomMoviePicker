@@ -10,6 +10,8 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import Loading from './Loading';
 import Output from './Output';
+import Footer from './Footer';
+import Navbar from './Navbar';
 import util from '../../../sensitive';
 import getAllPageData from '../../../helpers/helpers';
 
@@ -43,8 +45,10 @@ class Form extends Component {
       total_pages: 0,
       isLoading: '',
       view: 'form',
+      reload: false,
     };
   }
+
 
   getAllPageData(genre, pageCount) {
     var allData = [];
@@ -87,15 +91,20 @@ class Form extends Component {
     e.preventDefault();
     this.setState({
       isLoading: true,
+      reload: true,
     });
     this.handleSubmit(e);
   }
 
+  changeReload(e) {
+    this.setState({
+      reload: e,
+    });
+  }
 
   handleSubmit(e) {
     const { genres } = this.state;
     const genreId = genres[e.target.genre.value];
-    console.log(genreId, 'genreId');
     let path = '';
     if (e.target.genre.value !== undefined) {
       path = `https://api.themoviedb.org/3/discover/movie?api_key=${util.API_KEY}&include_adult=false&with_genres=${genreId}&with_original_language=en`;
@@ -111,48 +120,75 @@ class Form extends Component {
         console.log(err, 'Error');
       },
     });
+    this.setState({
+      reload: false,
+    });
   }
 
   form() {
     const genre = ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'History', 'Horror', 'Music', 'Mystery', 'Romance', 'Science_Fiction', 'TV_Movie', 'Thriller', 'War', 'Western'];
     return (
-      <form id="form" className="form bg-light border-top border-bottom rounded col-sm-7" onSubmit={this.setLoading.bind(this)}>
+      <form id="form" className="form bg-light rounded col-sm-7" onSubmit={this.setLoading.bind(this)}>
         <div className="form-group">
-          <p className="h4">Pick A Flick (LOGO GOES HERE)</p>
+          <img src="https://i.imgur.com/a7WrQoe.png" alt="flick-finder-logo" width="200px" />
+          <br />
+          <br />
           <hr />
+          <br />
         </div>
         <div className="form-row">
           <div className="form-group col-sm">
-            <label className="h5">Genre</label>
             <select id="genre" className="form-control">
               <option>Choose Genre...</option>
               {genre.map((elem, i) => <option key={i}>{elem}</option>)}
             </select>
           </div>
         </div>
-
+        <br />
         <div className="col-sm">
-          <button className="btn btn-dark btn-lg text-white">Submit</button>
+          <button className="btn btn-dark btn-lg text-light">Submit</button>
         </div>
       </form>
     );
   }
 
   render() {
-    const { isLoading, data, view } = this.state;
+    const {
+      isLoading, data, view, reload,
+    } = this.state;
     if (isLoading) {
       return (
-        <Loading />
+        <div>
+          {/* <Navbar /> */}
+          <Loading />
+          <Footer />
+        </div>
       );
     }
     if (view === 'output') {
       return (
-        <Output data={data} />
+        <div>
+          {/* <Navbar /> */}
+          {this.form()}
+          <Output data={data} reload={reload} />
+          <Footer />
+        </div>
+      );
+    }
+    if (reload === true) {
+      return (
+        <div>
+          {/* <Navbar /> */}
+          <Loading />
+          <Footer />
+        </div>
       );
     }
     return (
       <div>
+        {/* <Navbar /> */}
         {this.form()}
+        <Footer />
       </div>
     );
   }

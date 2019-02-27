@@ -42,9 +42,7 @@ class Output extends Component {
 
 
   setMovie() {
-    const {
-      movies, film1, film2, film3,
-    } = this.state;
+    const { movies } = this.state;
     this.setState({
       film1: Helpers.getRandomFilm(movies),
       film2: Helpers.getRandomFilm(movies),
@@ -56,7 +54,6 @@ class Output extends Component {
     const {
       film1, film2, film3,
     } = this.state;
-    console.log(film1, 'film year');
     return (
       <div className="output">
         <div className="d-flex flex-column">
@@ -67,7 +64,7 @@ class Output extends Component {
               <div className="p2">
                 <img src={`https://image.tmdb.org/t/p/w300/${film1.poster_path}`} />
               </div>
-              <div className="p2 col-sm-5">
+              <div className="p2 col-sm-6">
                 <a target="_blank" href={`https://www.youtube.com/results?search_query=${film1.title}%20trailer`}>
                   <p className="h4 text-danger"><b>{`${film1.title} (${film1.release_date})`}</b></p>
                 </a>
@@ -80,12 +77,23 @@ class Output extends Component {
                 </div>
                 <br />
                 <br />
-                <a target="_blank" href={`https://www.imdb.com/find?ref_=nv_sr_fn&q=${film1.title}&s=all`}>
-                  <p className="text-primary">More Information</p>
-                </a>
+                <div className="d-flex flex-row">
+                  <a target="_blank" href={`https://www.imdb.com/find?ref_=nv_sr_fn&q=${film1.title}&s=all`}>
+                    <input className="btn btn-sm btn-success" type="button" value="More Information" />
+                  </a>
+                  <a target="_blank" href={`https://www.youtube.com/results?search_query=${film1.title}%20trailer`}>
+                    <input className="btn btn-sm btn-success" type="button" value="Watch Trailer" />
+                  </a>
+                  <a target="_blank" href={`https://www.justwatch.com/us/search?q=${film1.title}`}>
+                    <input className="btn btn-sm btn-success" type="button" value="Where Is It Streaming?" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
+          <br />
+          <br />
+          <hr />
           <br />
           <br />
 
@@ -95,7 +103,7 @@ class Output extends Component {
               <div className="p2">
                 <img src={`https://image.tmdb.org/t/p/w300/${film2.poster_path}`} />
               </div>
-              <div className="p2 col-sm-5">
+              <div className="p2 col-sm-6">
                 <a target="_blank" href={`https://www.youtube.com/results?search_query=${film2.title}%20trailer`}>
                   <p className="h4 text-danger"><b>{`${film2.title} (${film2.release_date})`}</b></p>
                 </a>
@@ -104,10 +112,27 @@ class Output extends Component {
                 <p className={`h6 ${film2.vote_average > 5.5 ? 'text-success' : 'text-danger'}`}><b>{film2.vote_average}</b></p>
                 <br />
                 <p className="text-light">{film2.overview}</p>
+                <br />
+                <br />
+                <div className="d-flex flex-row">
+                  <a target="_blank" href={`https://www.imdb.com/find?ref_=nv_sr_fn&q=${film2.title}&s=all`}>
+                    <input className="btn btn-sm btn-success" type="button" value="More Information" />
+                  </a>
+                  <a target="_blank" href={`https://www.youtube.com/results?search_query=${film2.title}%20trailer`}>
+                    <input className="btn btn-sm btn-success" type="button" value="Watch Trailer" />
+                  </a>
+                  <a target="_blank" href={`https://www.justwatch.com/us/search?q=${film2.title}`}>
+                    <input className="btn btn-sm btn-success" type="button" value="Where Is It Streaming?" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-          <br /><br />
+          <br />
+          <br />
+          <hr />
+          <br />
+          <br />
 
 
           <div className="p2">
@@ -115,7 +140,7 @@ class Output extends Component {
               <div className="p2">
                 <img src={`https://image.tmdb.org/t/p/w300/${film3.poster_path}`} />
               </div>
-              <div className="p2 col-sm-5">
+              <div className="p2 col-sm-6">
                 <a target="_blank" href={`https://www.youtube.com/results?search_query=${film3.title}%20trailer`}>
                   <p className="h4 text-danger"><b>{`${film3.title} (${film3.release_date})`}</b></p>
                 </a>
@@ -124,13 +149,30 @@ class Output extends Component {
                 <p className={`h6 ${film3.vote_average > 5.5 ? 'text-success' : 'text-danger'}`}><b>{film3.vote_average}</b></p>
                 <br />
                 <p className="text-light">{film3.overview}</p>
+                <br />
+                <br />
+                <div className="d-flex flex-row">
+                  <a target="_blank" href={`https://www.imdb.com/find?ref_=nv_sr_fn&q=${film3.title}&s=all`}>
+                    <input className="btn btn-sm btn-success" type="button" value="More Information" />
+                  </a>
+                  <a target="_blank" href={`https://www.youtube.com/results?search_query=${film3.title}%20trailer`}>
+                    <input className="btn btn-sm btn-success" type="button" value="Watch Trailer" />
+                  </a>
+                  <a target="_blank" href={`https://www.justwatch.com/us/search?q=${film3.title}`}>
+                    <input className="btn btn-sm btn-success" type="button" value="Where Is It Streaming?" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <br /><br />
+        <br />
+        <br />
+        <hr />
+        <br />
+        <br />
 
-        <div className="d-flex justify-content-center ">
+        <div className="d-flex justify-content-center">
           <button type="button" className="btn btn-warning btn-lg" onClick={this.setMovie.bind(this)}>Pick New Flicks</button>
         </div>
       </div>
@@ -139,9 +181,10 @@ class Output extends Component {
 
   render() {
     const { isLoading, view } = this.state;
+    const { loading } = this.props;
+    const { reload } = this.props;
     return (
       <div>
-        <Form />
         {this.output()}
       </div>
     );
