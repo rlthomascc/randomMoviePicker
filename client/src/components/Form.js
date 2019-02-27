@@ -1,3 +1,6 @@
+/* eslint-disable react/jsx-one-expression-per-line */
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/button-has-type */
 /* eslint-disable no-var */
 /* eslint-disable no-plusplus */
 /* eslint-disable react/no-unused-state */
@@ -128,10 +131,29 @@ class Form extends Component {
   form() {
     const genre = ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'History', 'Horror', 'Music', 'Mystery', 'Romance', 'Science_Fiction', 'TV_Movie', 'Thriller', 'War', 'Western'];
     return (
-      <form id="form" className="form bg-light rounded col-sm-7" onSubmit={this.setLoading.bind(this)}>
+      <form id="form" className="form bg-light rounded " onSubmit={this.setLoading.bind(this)}>
         <div className="form-group">
           <img src="https://i.imgur.com/a7WrQoe.png" alt="flick-finder-logo" width="200px" />
           <br />
+          <p>
+            <b>To Find A Flick,</b>
+            <br />
+            <b>First:</b> select a <b>Genre</b>, <i>then select <b>Submit</b></i>.
+            {' '}
+            <br />
+            <b>Second:</b> Movies will load directly <i>underneath</i> the submission form.
+            {' '}
+            <br />
+              From there you can <i>watch trailers</i> to specified movies, see <i>IMDB</i> info about the films, or <i>find out where the film is streaming! (Netflix, Hulu, HBO Go, etc...)</i>
+            {' '}
+            <br />
+            If you do not like the movie choices, simply click the <b>"Find New Flicks"</b> button on the <i>bottom of the page</i>
+            {' '}
+            <br />
+            or <b>Search for a new Genre!</b>
+
+
+          </p>
           <br />
           <hr />
           <br />
@@ -148,6 +170,8 @@ class Form extends Component {
         <div className="col-sm">
           <button className="btn btn-dark btn-lg text-light">Submit</button>
         </div>
+        <br />
+        <br />
       </form>
     );
   }
@@ -159,7 +183,6 @@ class Form extends Component {
     if (isLoading) {
       return (
         <div>
-          {/* <Navbar /> */}
           <Loading />
           <Footer />
         </div>
@@ -168,7 +191,6 @@ class Form extends Component {
     if (view === 'output') {
       return (
         <div>
-          {/* <Navbar /> */}
           {this.form()}
           <Output data={data} reload={reload} />
           <Footer />
@@ -178,7 +200,6 @@ class Form extends Component {
     if (reload === true) {
       return (
         <div>
-          {/* <Navbar /> */}
           <Loading />
           <Footer />
         </div>
@@ -186,7 +207,6 @@ class Form extends Component {
     }
     return (
       <div>
-        {/* <Navbar /> */}
         {this.form()}
         <Footer />
       </div>
