@@ -134,29 +134,14 @@ class Form extends Component {
       <form id="form" className="form bg-light rounded " onSubmit={this.setLoading.bind(this)}>
         <div className="form-group">
           <img src="https://i.imgur.com/a7WrQoe.png" alt="flick-finder-logo" width="200px" />
-          <br />
           <p>
             <b>To Find A Flick,</b>
             <br />
-            <b>First:</b> select a <b>Genre</b>, <i>then select <b>Submit</b></i>.
-            {' '}
+            <b>First:</b> select a <b>Genre</b>, <i>then select <b>Submit</b></i>
             <br />
-            <b>Second:</b> Movies will load directly <i>underneath</i> the submission form.
-            {' '}
-            <br />
-              From there you can <i>watch trailers</i> to specified movies, see <i>IMDB</i> info about the films, or <i>find out where the film is streaming! (Netflix, Hulu, HBO Go, etc...)</i>
-            {' '}
-            <br />
-            If you do not like the movie choices, simply click the <b>"Find New Flicks"</b> button on the <i>bottom of the page</i>
-            {' '}
-            <br />
-            or <b>Search for a new Genre!</b>
-
-
+            <i><b>Scroll below to see results, trailers, and more!</b></i>
           </p>
-          <br />
           <hr />
-          <br />
         </div>
         <div className="form-row">
           <div className="form-group col-sm">
@@ -170,7 +155,6 @@ class Form extends Component {
         <div className="col-sm">
           <button className="btn btn-dark btn-lg text-light">Submit</button>
         </div>
-        <br />
         <br />
       </form>
     );
