@@ -1,3 +1,6 @@
+/* eslint-disable react/jsx-one-expression-per-line */
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/button-has-type */
 /* eslint-disable no-var */
 /* eslint-disable no-plusplus */
 /* eslint-disable react/no-unused-state */
@@ -128,13 +131,17 @@ class Form extends Component {
   form() {
     const genre = ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'History', 'Horror', 'Music', 'Mystery', 'Romance', 'Science_Fiction', 'TV_Movie', 'Thriller', 'War', 'Western'];
     return (
-      <form id="form" className="form bg-light rounded col-sm-7" onSubmit={this.setLoading.bind(this)}>
+      <form id="form" className="form bg-light rounded " onSubmit={this.setLoading.bind(this)}>
         <div className="form-group">
           <img src="https://i.imgur.com/a7WrQoe.png" alt="flick-finder-logo" width="200px" />
-          <br />
-          <br />
+          <p>
+            <b>To Find A Flick,</b>
+            <br />
+            <b>First:</b> select a <b>Genre</b>, <i>then select <b>Submit</b></i>
+            <br />
+            <i><b>Scroll below to see results, trailers, and more!</b></i>
+          </p>
           <hr />
-          <br />
         </div>
         <div className="form-row">
           <div className="form-group col-sm">
@@ -148,6 +155,7 @@ class Form extends Component {
         <div className="col-sm">
           <button className="btn btn-dark btn-lg text-light">Submit</button>
         </div>
+        <br />
       </form>
     );
   }
@@ -159,7 +167,6 @@ class Form extends Component {
     if (isLoading) {
       return (
         <div>
-          {/* <Navbar /> */}
           <Loading />
           <Footer />
         </div>
@@ -168,7 +175,6 @@ class Form extends Component {
     if (view === 'output') {
       return (
         <div>
-          {/* <Navbar /> */}
           {this.form()}
           <Output data={data} reload={reload} />
           <Footer />
@@ -178,7 +184,6 @@ class Form extends Component {
     if (reload === true) {
       return (
         <div>
-          {/* <Navbar /> */}
           <Loading />
           <Footer />
         </div>
@@ -186,7 +191,6 @@ class Form extends Component {
     }
     return (
       <div>
-        {/* <Navbar /> */}
         {this.form()}
         <Footer />
       </div>

@@ -1,13 +1,14 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-plusplus */
+/* eslint-disable react/no-unused-state */
+/* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable no-useless-constructor */
 /* eslint-disable no-var */
 import React, { Component } from 'react';
-import { release } from 'os';
 import Helpers from '../../../helpers/helpers';
-import Loading from './Loading';
-import Form from './Form';
 
 class Output extends Component {
   constructor(props) {
@@ -22,8 +23,7 @@ class Output extends Component {
   }
 
   componentWillMount() {
-    const { data, isLoading } = this.props;
-    const { film1, film2, film3 } = this.state;
+    const { data } = this.props;
     var flatData = [];
     for (let i = 0; i < data.length; i++) {
       for (let j = 0; j < data[i].length; j++) {
@@ -62,7 +62,7 @@ class Output extends Component {
           <div className="p2">
             <div className="d-flex flex-row">
               <div className="p2">
-                <img src={`https://image.tmdb.org/t/p/w300/${film1.poster_path}`} />
+                <img alt="poster" src={`https://image.tmdb.org/t/p/w300/${film1.poster_path}`} />
               </div>
               <div className="p2 col-sm-6">
                 <a target="_blank" href={`https://www.youtube.com/results?search_query=${film1.title}%20trailer`}>
@@ -101,7 +101,7 @@ class Output extends Component {
           <div className="p2">
             <div className="d-flex flex-row">
               <div className="p2">
-                <img src={`https://image.tmdb.org/t/p/w300/${film2.poster_path}`} />
+                <img alt="poster" src={`https://image.tmdb.org/t/p/w300/${film2.poster_path}`} />
               </div>
               <div className="p2 col-sm-6">
                 <a target="_blank" href={`https://www.youtube.com/results?search_query=${film2.title}%20trailer`}>
@@ -138,7 +138,7 @@ class Output extends Component {
           <div className="p2">
             <div className="d-flex flex-row">
               <div className="p2">
-                <img src={`https://image.tmdb.org/t/p/w300/${film3.poster_path}`} />
+                <img alt="poster" src={`https://image.tmdb.org/t/p/w300/${film3.poster_path}`} />
               </div>
               <div className="p2 col-sm-6">
                 <a target="_blank" href={`https://www.youtube.com/results?search_query=${film3.title}%20trailer`}>
@@ -173,16 +173,20 @@ class Output extends Component {
         <br />
 
         <div className="d-flex justify-content-center">
-          <button type="button" className="btn btn-warning btn-lg" onClick={this.setMovie.bind(this)}>Pick New Flicks</button>
+          <button type="button" className="btn btn-warning btn-lg" onClick={this.setMovie.bind(this)}>Find New Flicks</button>
         </div>
+        <br />
+        <br />
+        <div className="d-flex justify-content-center">
+          <p className="text-secondary">Thank you for using & supporting this service!</p>
+        </div>
+        <br />
+        <br />
       </div>
     );
   }
 
   render() {
-    const { isLoading, view } = this.state;
-    const { loading } = this.props;
-    const { reload } = this.props;
     return (
       <div>
         {this.output()}

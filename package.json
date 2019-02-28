@@ -8,7 +8,7 @@
     "server": "nodemon server/index.js rs",
     "start": "node server/index.js"
   },
-  "author": "Randy L Thomas",
+  "author": "Randy L. Thomas",
   "license": "ISC",
   "devDependencies": {
     "axios": "^0.18.0",
