@@ -14,7 +14,6 @@ import $ from 'jquery';
 import Loading from './Loading';
 import Output from './Output';
 import Footer from './Footer';
-import Navbar from './Navbar';
 import util from '../../../sensitive';
 import getAllPageData from '../../../helpers/helpers';
 
